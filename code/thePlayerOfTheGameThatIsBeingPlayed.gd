@@ -148,7 +148,11 @@ func attack():
 		b.global_rotation = hand.global_rotation
 		b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
 		#b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
-		print("hi")
+		
+		var recoil_str = a.recoil
+		var recoil_dir = global_transform.basis.z
+		velocity += recoil_dir * recoil_str
+
 	#HUD.setMaxAmmo(a.maxammo)
 	#HUD.setAmmo(a.ammo)
 	pass
