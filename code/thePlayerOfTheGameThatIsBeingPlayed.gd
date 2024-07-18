@@ -6,6 +6,12 @@ class_name Player
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
 @export var CAMERA_CONTROLLER : Camera3D
+@export var maxhealth= 100
+@export var health = 100
+
+@onready var pcap = $CollisionShape3D
+@onready var HUD = $HUD
+
 var playerClass : CasteSystem
 var _mouse_input : bool = false
 var _rotation_input : float
@@ -15,17 +21,14 @@ var _player_rotation : Vector3
 var _camera_rotation : Vector3
 var weapons : Array
 var weaponIndex = 0
-var HUD
 var hand: Node3D
 var headlag= 1
 var crouch = 1
-@onready var pcap = $CollisionShape3D
 var default_height = 2
 var crouch_move_speed = SPEED*0.4
 var crouch_speed = 20
 var crouch_height = default_height*0.3
-@export var maxhealth= 100
-@export var health = 100 
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -81,7 +84,6 @@ func _ready():
 	# Get mouse input
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	CAMERA_CONTROLLER = $Camera3D
-	HUD = $Control
 func ask_health(ct):
 	if maxhealth <= health:
 		print("health full")

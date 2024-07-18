@@ -1,22 +1,24 @@
 extends Control
-var ammo:Label
-var weap:TextureRect
+@onready var clip_ammo = $panel/Ammo/ClipAmmo
+@onready var total_ammo = $panel/Ammo/TotalAmmo
+@onready var weapon = $panel2/weapon
+
 var ammoCount =0 
 var ammoTop= 0 
-func _ready():
-	ammo = $mainBox/Label as Label
-	weap = $mainBox/weaponBox/weapon as TextureRect
+
 func updateSlot():
 	pass
 	
 func setMaxAmmo(count):
 	ammoTop = count
-	ammo.text = str(ammoCount)+"/"+str(ammoTop)
+	total_ammo.text = ammoTop
+	
 func setAmmo(count):
 	ammoCount = count
-	ammo.text = str(ammoCount)+"/"+str(ammoTop)
+	clip_ammo.text = str(ammoCount)
+	
 func ammoBlink():
 	pass
-func setIcon(icon):
-	var a = $mainBox/weaponBox/weapon as TextureRect
-	a.texture = icon
+	
+func setWeaponIcon(icon):
+	weapon.texture = icon
