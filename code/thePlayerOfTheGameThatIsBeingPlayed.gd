@@ -136,7 +136,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("fire"):
 		var weapon = weapons[weaponIndex] as Weapon
-		var recoil_str = weapon.recoil
+		var recoil_str = weapon.force
 		var recoil_dir = global_transform.basis.z
 		velocity = recoil_dir * recoil_str
 

@@ -7,7 +7,6 @@ class_name Gun
 @export var clipsize = 7
 @export var firesound : AudioStreamWAV
 @export var reloadDelay=1
-@export var force =20
 var reloadTimeRemaining =0
 @export var firingDelay = 0.5
 var firingTimeRemaining =0
@@ -16,6 +15,7 @@ var aimdownTimeRemaining =0
 
 func _init():
 	recoil_rotation = -0.3
+	force = 20
 	pass
 
 func _process(delta):
