@@ -73,21 +73,17 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ga5ay")
 
 [node name="RigidBody3D" type="RigidBody3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 max_contacts_reported = 2
 contact_monitor = true
-linear_velocity = Vector3(2.14, 0, 0)
+linear_velocity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 script = ExtResource("1_m48pf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 shape = SubResource("SphereShape3D_jnjdp")
 
 [node name="Cylinder" type="MeshInstance3D" parent="."]
-transform = Transform3D(3.82137e-14, -20, -3.25842e-06, -20, 1.04216e-13, -8.74228e-07, 8.74228e-07, 3.25842e-06, -20, 0, 0, 0)
+transform = Transform3D(4.37114e-07, -10, -1.50996e-06, -10, -4.37114e-07, -4.37114e-07, 4.37114e-07, 1.50996e-06, -10, 0, 0, 0)
 mesh = SubResource("ArrayMesh_pn2iu")
 skeleton = NodePath("")
-
-[node name="explos" type="CSGSphere3D" parent="Cylinder"]
-transform = Transform3D(-7.04977e-09, -0.16128, -1.91794e-22, -1.92261e-08, 8.40398e-16, -0.16128, 0.16128, -7.04977e-09, -1.92261e-08, 0, 0, 0)
-visible = false
-operation = 2

@@ -78,7 +78,7 @@ model = NodePath("RootNode/Cube")
 image = ExtResource("3_lxc0h")
 
 [node name="RootNode" type="Node3D" parent="."]
-transform = Transform3D(0.165259, 0.0337048, 0.0951108, 0.100906, -0.0552, -0.155768, 7.97773e-09, 0.182509, -0.0646765, 0, 0, 0)
+transform = Transform3D(-0.0161778, 0.00858525, 0.192762, -0.192159, 0.0168118, -0.016876, -0.0174846, -0.192708, 0.00711543, 0.5, -0.5, -0.112101)
 
 [node name="Cube" type="MeshInstance3D" parent="RootNode"]
 transform = Transform3D(100, 0, 0, 0, -2.38419e-05, 100, 0, -100, -2.38419e-05, 0, 0, 0)

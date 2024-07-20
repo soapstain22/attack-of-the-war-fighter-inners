@@ -1,11 +1,11 @@
 extends RigidBody3D
-var explosion:CSGSphere3D
-var collider:CollisionShape3D
+var explosion
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	explosion=$Cylinder/explos
-	collider=$CollisionShape3D
+	explosion=preload("res://scenes/prefabs/projectiles/explosion.tscn")
+
 	pass # Replace with function body.
 
 
@@ -14,14 +14,14 @@ func _process(delta):
 	
 	pass
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	for i in state.get_contact_count():
-		var contact_collider := state.get_contact_collider_object(i)
-		var contact_normal := state.get_contact_local_normal(i)
+	for i in get_colliding_bodies():
+		var contact_collider = i
 		if is_instance_valid(contact_collider):
-			if contact_collider.is_in_group("carving"):
-				print(contact_collider.to_string())
-				var p :CSGCombiner3D
-				p=contact_collider
-				explosion.visible =true
-				explosion.reparent(contact_collider)
-				queue_free()
+			var a = explosion as PackedScene
+			a = a.instantiate()
+			get_tree().root.get_child(0).add_child(a)
+			a.global_position = global_position
+		queue_free()
+			#get_tree().root.get_child(0).add_child(explosion)
+
+

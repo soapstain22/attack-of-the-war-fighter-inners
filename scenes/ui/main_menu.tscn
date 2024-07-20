@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://0cr0uk26tm8t"]
+
+[ext_resource type="Theme" uid="uid://cpgtiw42lwu1a" path="res://metal_theme.tres" id="1_xhkhu"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_34gyb"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xhkhu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Overlay" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(0, 0, 0, 0.196078)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_34gyb")
+
+[node name="Menu" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -206.5
+offset_right = 155.0
+offset_bottom = 206.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xhkhu")
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ServersBtn" type="Button" parent="CanvasLayer/Menu/Buttons"]
+layout_mode = 2
+text = "Servers"
+
+[node name="Separator" type="Control" parent="CanvasLayer/Menu/Buttons"]
+custom_minimum_size = Vector2(2.08165e-12, 25)
+layout_mode = 2
+
+[node name="SettingsBtn" type="Button" parent="CanvasLayer/Menu/Buttons"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Separator2" type="Control" parent="CanvasLayer/Menu/Buttons"]
+custom_minimum_size = Vector2(2.08165e-12, 25)
+layout_mode = 2
+
+[node name="StatsBtn" type="Button" parent="CanvasLayer/Menu/Buttons"]
+layout_mode = 2
+text = "Stats"
+
+[node name="Separator3" type="Control" parent="CanvasLayer/Menu/Buttons"]
+custom_minimum_size = Vector2(2.08165e-12, 25)
+layout_mode = 2
+
+[node name="LoadoutBtn" type="Button" parent="CanvasLayer/Menu/Buttons"]
+layout_mode = 2
+text = "Loadout"

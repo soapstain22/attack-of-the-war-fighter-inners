@@ -6,6 +6,7 @@ class_name Player
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
 @export var CAMERA_CONTROLLER : Camera3D
+var selectedWeapon : Weapon
 var playerClass : CasteSystem
 var _mouse_input : bool = false
 var _rotation_input : float
@@ -78,11 +79,14 @@ func _update_camera(delta):
 func _ready():
 	hand = $Camera3D/hand
 	
-	give_instance(preload("res://scenes/prefabs/weapons/WP_Gun.tscn"))
 	# Get mouse input
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	CAMERA_CONTROLLER = $Camera3D
 	HUD = $Control
+	# Load the weapons after getting a reference to the controller
+	give_instance(preload("res://scenes/prefabs/weapons/WP_Bow.tscn"))
+	give_instance(preload("res://scenes/prefabs/weapons/WP_Gun.tscn"))
+	set_equipped(0)
 func ask_health(ct):
 	if maxhealth <= health:
 		print("health full")
@@ -163,19 +167,30 @@ func attack():
 func changeweapon(dir):
 	print("changing")
 	weapons[weaponIndex].visible = false
-	if(dir==1):
-		weaponIndex = (weaponIndex+1)%len(weapons)
-	if(dir==-1):
-		weaponIndex = (weaponIndex-1)%len(weapons)
-	weapons[weaponIndex].visible = true
-	HUD.setIcon(weapons[weaponIndex].image)
-	
+	if (dir != 0):
+		weaponIndex = (weaponIndex+dir)%len(weapons)
+	selectedWeapon = weapons[weaponIndex]
+	selectedWeapon.visible = true
+	HUD.setIcon(selectedWeapon.image)
+	print("Weapon is now " + str(weaponIndex))
+
 func give_instance(weap):
 	var a = weap.instantiate()
+	a.visible = false
 	weapons.push_front(a)
-	hand.add_child(a)
 
-func set_equipped(weapo):
-	pass
+func set_equipped(weaponIDX=-1):
+	if weaponIDX == -1:
+		weaponIndex = 0
+	if is_instance_of(selectedWeapon, Weapon):
+		selectedWeapon.visible = false
+		hand.remove_child(selectedWeapon)
+	weaponIndex = weaponIDX
+	selectedWeapon = weapons[weaponIndex]
+	selectedWeapon.visible = true
+	hand.add_child(selectedWeapon)
+	
+	HUD.setIcon(selectedWeapon.image)
+	
 func add_health(toadd):
 	health += toadd

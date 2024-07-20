@@ -55,6 +55,7 @@ and you get a scissor to stab people
 | -------- | -------- |
 | Max Health     | 150     |
 | Speed     | 1.1     |
+
 ### weapons
 | mainarm                                                        | sidearm                                                                                           | utility                                      |
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------- |
@@ -87,10 +88,10 @@ u get guns and a rocket launcher
 ### weapons
 | mainarm                          | sidearm       | utility      |
 |:-------------------------------- | ------------- | ------------ |
-| **pickaxe**: dig tiny holes fast | **crossbow**: shitty sniper rifle | **40-ounce**: drink a bit of your malt liquor |
+| **pickaxe**: dig tiny holes fast. right click allows you to pick into things and pull yourself above them, used to scale walls | **crossbow**: shitty sniper rifle | **40-ounce**: drink a bit of your malt liquor |
 | **shovel**: dig big holes slow   | **dynamite**: bomb  |              |
 | **sledgehammer**: BIG MELEE      |               |              |
-
+he will take 50% less damage from explosions. because he is exploding very carefully.
 ## knight
 ![image](https://web.archive.org/web/20091026204339/http://www.geocities.com/cushingpeter/knight2.gif)
 sword and shield
@@ -99,15 +100,19 @@ sword and shield
 |:------------------------------------------ | ------------ | ------------- |
 | **sword**: works with shield               | **shield**: usable as a sled too   | **scream**: loud sound |
 | **2 hand sword**: no sidearm double damage | |               |
+| **waraxe**: can cut through stuff | |               |
+| **spear**: can throw | **dagger** really dogshit but you can throw it|               |
 
+usually the go to for this glass is to buy a bomb and use your shield to stop the blast and essentially rocket jump around and dive into people with your sword.
 ## archer
 ![image](https://web.archive.org/web/20090808054427/http://www.geocities.com/evelynkaye/sm.archer.gif)
 bow and arrow
 ### weapons
 | mainarm                                    | sidearm      | utility       |
 |:------------------------------------------ | ------------ | ------------- |
-| **bow**: shoot arrow               | **grappling hook**: swing around the map   | **scream**: loud sound |
-
+| **shortbow**: shoot arrow quick            | **grappling hook**: swing around the map   | **scream**: loud sound |
+| **longbow**: shoot arrow slow             | **grappling hook**: swing around the map   |  |
+Has access to different arrow types.
 # Maps
 also see map voting
 ## bedroom
@@ -119,25 +124,21 @@ todo
 ## Health
 Each class has a defined max health and minimum health. Some classes can recover HP slowly. When you hit 0 health you explode. Respawns are random based on teams. Also, health pickups are available around the map and will regenerate after 15 seconds
 ## Fall damage
-when u fall, calculate the distance of the fall/20
+when u fall, calculate the distance of the fall/20.
+idk man.
+archer has fall damage immunity
 ## Respawning
 Pick a spawn point and respawn. im not sure how to flesh this out yet. haha!
 Spawn points on the map determine where to place players after respawn.
 > Can also be placed down? maybe.
-## Rank
+## Leveling
+### Ranks
 The ranking system is used to unlock new content as a reward for gradual playtime.
 The user has a defined rank based on their total EXP gained throughout all sessions. It is not dependent on class.
-## Loadout Customization
-You will be able to unlock new weapons based on your rank
-### Gun
-standard pistol type weapon with a clip that needs to be reloaded 
-![gun](https://hackmd.io/_uploads/S1pCAI4vA.png)
-### Launcher
-![launcher](https://hackmd.io/_uploads/SyIeJP4DR.png)
-### pickaxe
-![pick](https://hackmd.io/_uploads/r1V7kDVvC.png)
-### shovel
-![shovel](https://hackmd.io/_uploads/S16QJvVvR.png)
+At certian ranks, more content is unlocked.
+### Weapon leveling
+Each weapon has a total permanent kill count. More kills will unlock more attatchments for weapons. Skins are also unlocked for each gun at certian kill counts.
+Attachments can be things like a laser sight, suppressor, muzzle break or boost, bigger or smaller ammo sizes that change your speed and recoil.
 # Interface Description
 Will figure out what works best in practice
 ## Menus
@@ -159,10 +160,13 @@ Need to draw hypothetical screenshots soon
 * Mainhand Weapon
 * Offhand weapon
 * Utility
-* Utility 2
-* Helmet
-* Backpack
 * Armor
-* Belt
+* cosmetic hat
 ## Settings
-* TBD
+* Slider: General FOV: 70 to 110 with default being 90
+* Slider: Aimdown FOV: 50 to 110 with default being 90
+* Slider: Master Volume: 0 to 100 with default being 50
+* Slider: Voice Volume: 0 to 100 with default being 50
+* Slider: SFX Volume: 0 to 100 with default being 50
+* Dropdown: Graphics Quality - [Doodoo, Low, Medium, High, XTreme]
+* Button: Keybinds

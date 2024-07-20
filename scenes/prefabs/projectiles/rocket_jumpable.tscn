@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ccwjy731ivkd2"]
 
-[ext_resource type="Script" path="res://code/bomb.gd" id="1_w003p"]
+[ext_resource type="Script" path="res://code/rocket.gd" id="1_kab82"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jnjdp"]
 
@@ -77,7 +77,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 max_contacts_reported = 2
 contact_monitor = true
 linear_velocity = Vector3(2.14, 0, 0)
-script = ExtResource("1_w003p")
+script = ExtResource("1_kab82")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_jnjdp")
