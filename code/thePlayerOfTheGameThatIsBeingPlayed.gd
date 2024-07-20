@@ -133,10 +133,16 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 		if not is_on_floor():
 			CAMERA_CONTROLLER.position = Vector3.UP*lerpf(CAMERA_CONTROLLER.position.y,1.5,delta*5)
-	var a = weapons[weaponIndex]
-	#a.global_position = hand.global_position + CAMERA_CONTROLLER.basis*a.currentAim
+	
+	if Input.is_action_just_pressed("fire"):
+		var weapon = weapons[weaponIndex] as Weapon
+		var recoil_str = weapon.recoil
+		var recoil_dir = global_transform.basis.z
+		velocity = recoil_dir * recoil_str
+
 	move_and_slide()
-	# THIS WAS BLATANTLY STOLEN FROM https://github.com/StayAtHomeDev-Git/FPS-Godot-Basic-Setup/blob/main/controllers/scripts/fps_controller.gd
+
+# THIS WAS BLATANTLY STOLEN FROM https://github.com/StayAtHomeDev-Git/FPS-Godot-Basic-Setup/blob/main/controllers/scripts/fps_controller.gd
 func attack():
 	#var a = $".."
 	#a.add_child(weapons[weaponIndex])
@@ -149,9 +155,6 @@ func attack():
 		b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
 		#b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
 		
-		var recoil_str = a.recoil
-		var recoil_dir = global_transform.basis.z
-		velocity += recoil_dir * recoil_str
 
 	#HUD.setMaxAmmo(a.maxammo)
 	#HUD.setAmmo(a.ammo)
