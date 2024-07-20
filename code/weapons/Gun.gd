@@ -13,7 +13,13 @@ var reloadTimeRemaining =0
 var firingTimeRemaining =0
 @export var aimdownDelay = 0.2
 var aimdownTimeRemaining =0
+
+func _init():
+	recoil_rotation = -0.3
+	pass
+
 func _process(delta):
+	super(delta)
 	if reloadTimeRemaining > 0:
 		#print(cooldown)
 		reloadTimeRemaining -= delta
@@ -41,4 +47,5 @@ func shoot():
 	newbullet.linear_velocity+=Vector3.FORWARD*force
 	get_tree().root.get_child(0).add_child(newbullet)
 	newbullet.global_position = $firepoint.global_position
+	recoil()
 	return newbullet as RigidBody3D
