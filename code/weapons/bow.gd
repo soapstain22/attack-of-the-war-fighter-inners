@@ -6,7 +6,10 @@ var pulling: bool = false
 @export var ammo = 10
 @export var maxammo = 10
 @export var firesound : AudioStreamWAV
-@export var force = 20
+
+func _init():
+	force = 20
+
 func _process(delta):
 	if pulling:
 		print("pulling back")
