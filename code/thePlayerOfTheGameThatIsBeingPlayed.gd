@@ -19,6 +19,7 @@ var HUD
 var hand: Node3D
 var headlag= 1
 var crouch = 1
+var knockback = 0
 @onready var pcap = $CollisionShape3D
 var default_height = 2
 var crouch_move_speed = SPEED*0.4
@@ -134,11 +135,9 @@ func _physics_process(delta):
 		if not is_on_floor():
 			CAMERA_CONTROLLER.position = Vector3.UP*lerpf(CAMERA_CONTROLLER.position.y,1.5,delta*5)
 	
-	if Input.is_action_just_pressed("fire"):
-		var weapon = weapons[weaponIndex] as Weapon
-		var recoil_str = weapon.force
-		var recoil_dir = global_transform.basis.z
-		velocity = recoil_dir * recoil_str
+	if knockback != 0:
+		velocity = global_transform.basis.z * knockback
+		knockback = 0
 
 	move_and_slide()
 
@@ -153,6 +152,7 @@ func attack():
 		#b.global_position = hand.global_position
 		b.global_rotation = hand.global_rotation
 		b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
+		knockback = a.force
 		#b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
 		
 
