@@ -6,16 +6,7 @@ class_name Player
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
 @export var CAMERA_CONTROLLER : Camera3D
-
 var selectedWeapon : Weapon
-
-@export var maxhealth= 100
-@export var health = 100
-
-@onready var pcap = $CollisionShape3D
-@onready var HUD = $HUD
-
-
 var playerClass : CasteSystem
 var _mouse_input : bool = false
 var _rotation_input : float
@@ -25,14 +16,18 @@ var _player_rotation : Vector3
 var _camera_rotation : Vector3
 var weapons : Array
 var weaponIndex = 0
+var HUD
 var hand: Node3D
 var headlag= 1
 var crouch = 1
+var knockback = 0
+@onready var pcap = $CollisionShape3D
 var default_height = 2
 var crouch_move_speed = SPEED*0.4
 var crouch_speed = 20
 var crouch_height = default_height*0.3
-
+@export var maxhealth= 100
+@export var health = 100 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -87,12 +82,11 @@ func _ready():
 	# Get mouse input
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	CAMERA_CONTROLLER = $Camera3D
-	HUD = $HUD
+	HUD = $Control
 	# Load the weapons after getting a reference to the controller
 	give_instance(preload("res://scenes/prefabs/weapons/WP_Bow.tscn"))
 	give_instance(preload("res://scenes/prefabs/weapons/WP_Gun.tscn"))
 	set_equipped(0)
-
 func ask_health(ct):
 	if maxhealth <= health:
 		print("health full")
@@ -144,10 +138,14 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 		if not is_on_floor():
 			CAMERA_CONTROLLER.position = Vector3.UP*lerpf(CAMERA_CONTROLLER.position.y,1.5,delta*5)
-	var a = weapons[weaponIndex]
-	#a.global_position = hand.global_position + CAMERA_CONTROLLER.basis*a.currentAim
+	
+	if knockback != 0:
+		velocity = global_transform.basis.z * knockback
+		knockback = 0
+
 	move_and_slide()
-	# THIS WAS BLATANTLY STOLEN FROM https://github.com/StayAtHomeDev-Git/FPS-Godot-Basic-Setup/blob/main/controllers/scripts/fps_controller.gd
+
+# THIS WAS BLATANTLY STOLEN FROM https://github.com/StayAtHomeDev-Git/FPS-Godot-Basic-Setup/blob/main/controllers/scripts/fps_controller.gd
 func attack():
 	#var a = $".."
 	#a.add_child(weapons[weaponIndex])
@@ -158,11 +156,12 @@ func attack():
 		#b.global_position = hand.global_position
 		b.global_rotation = hand.global_rotation
 		b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
+		knockback = a.force
 		#b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
-		print("hi")
-	HUD.setMaxAmmo(a.ammo)
-	HUD.setAmmo(a.clip)
-	#HUD.setClip(a.clip)
+		
+
+	#HUD.setMaxAmmo(a.maxammo)
+	#HUD.setAmmo(a.ammo)
 	pass
 	#hi.global_position = global_position
 func changeweapon(dir):
@@ -170,19 +169,16 @@ func changeweapon(dir):
 	weapons[weaponIndex].visible = false
 	if (dir != 0):
 		weaponIndex = (weaponIndex+dir)%len(weapons)
-	hand.remove_child(selectedWeapon)
 	selectedWeapon = weapons[weaponIndex]
 	selectedWeapon.visible = true
-	#HUD.setIcon(selectedWeapon.image)
-	hand.add_child(selectedWeapon)
-	print("Weapon is now ", weaponIndex)
+	HUD.setIcon(selectedWeapon.image)
+	print("Weapon is now " + str(weaponIndex))
 
 func give_instance(weap):
 	var a = weap.instantiate()
 	a.visible = false
 	weapons.push_front(a)
 
-# for right now, only use this for setting the initial weapon.
 func set_equipped(weaponIDX=-1):
 	if weaponIDX == -1:
 		weaponIndex = 0
@@ -193,9 +189,8 @@ func set_equipped(weaponIDX=-1):
 	selectedWeapon = weapons[weaponIndex]
 	selectedWeapon.visible = true
 	hand.add_child(selectedWeapon)
-	print("showing weapon", weaponIndex)
 	
-	#HUD.setIcon(selectedWeapon.image)
+	HUD.setIcon(selectedWeapon.image)
 	
 func add_health(toadd):
 	health += toadd
