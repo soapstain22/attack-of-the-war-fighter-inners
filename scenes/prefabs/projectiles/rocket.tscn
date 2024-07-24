@@ -74,6 +74,7 @@ shadow_mesh = SubResource("ArrayMesh_ga5ay")
 
 [node name="RigidBody3D" type="RigidBody3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+continuous_cd = true
 max_contacts_reported = 2
 contact_monitor = true
 linear_velocity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)

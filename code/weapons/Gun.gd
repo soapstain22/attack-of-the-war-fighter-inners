@@ -8,7 +8,7 @@ class_name Gun
 @export var clip = 7
 @export var firesound : AudioStreamWAV
 @export var reloadDelay=1
-var reloadTimeRemaining =0
+var reloadTimeRemaining =1
 @export var firingDelay = 0.5
 var firingTimeRemaining =0
 @export var aimdownDelay = 0.2
@@ -28,6 +28,7 @@ func _process(delta):
 		firingTimeRemaining -= delta
 
 func reload():
+	print("reloadin")
 	#incoming error i just needed to fix this before this class ends
 	if ammo != clipsize:
 		var a = clipsize - clip

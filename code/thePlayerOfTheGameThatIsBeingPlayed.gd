@@ -52,6 +52,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		SPEED = 9
 	if event.is_action_released("run"):
 		SPEED = 5
+	if event.is_action_released("reload"):
+		var a = weapons[weaponIndex] as Weapon
+		a.reload()
 func _input(event):
 	#if event.is_action_pressed("exit"):
 	#	get_tree().quit()
@@ -82,10 +85,11 @@ func _ready():
 	# Get mouse input
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	CAMERA_CONTROLLER = $Camera3D
-	HUD = $Control
+	HUD = $HUD
 	# Load the weapons after getting a reference to the controller
 	give_instance(preload("res://scenes/prefabs/weapons/WP_Bow.tscn"))
 	give_instance(preload("res://scenes/prefabs/weapons/WP_Gun.tscn"))
+	give_instance(preload("res://scenes/prefabs/weapons/WP_Rocket.tscn"))
 	set_equipped(0)
 func ask_health(ct):
 	if maxhealth <= health:
@@ -140,7 +144,7 @@ func _physics_process(delta):
 			CAMERA_CONTROLLER.position = Vector3.UP*lerpf(CAMERA_CONTROLLER.position.y,1.5,delta*5)
 	
 	if knockback != 0:
-		velocity = global_transform.basis.z * knockback
+		velocity += global_transform.basis.z * knockback
 		knockback = 0
 
 	move_and_slide()
@@ -160,8 +164,8 @@ func attack():
 		#b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
 		
 
-	#HUD.setMaxAmmo(a.maxammo)
-	#HUD.setAmmo(a.ammo)
+	HUD.setMaxAmmo(a.clipsize)
+	HUD.setAmmo(a.clip)
 	pass
 	#hi.global_position = global_position
 func changeweapon(dir):
@@ -171,7 +175,7 @@ func changeweapon(dir):
 		weaponIndex = (weaponIndex+dir)%len(weapons)
 	selectedWeapon = weapons[weaponIndex]
 	selectedWeapon.visible = true
-	HUD.setIcon(selectedWeapon.image)
+	#HUD.setIcon(selectedWeapon.image)
 	print("Weapon is now " + str(weaponIndex))
 
 func give_instance(weap):
@@ -190,7 +194,7 @@ func set_equipped(weaponIDX=-1):
 	selectedWeapon.visible = true
 	hand.add_child(selectedWeapon)
 	
-	HUD.setIcon(selectedWeapon.image)
+	#HUD.setIcon(selectedWeapon.image)
 	
 func add_health(toadd):
 	health += toadd

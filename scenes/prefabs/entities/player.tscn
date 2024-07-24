@@ -21,9 +21,11 @@ texture_margin_bottom = 20.0
 
 [sub_resource type="SystemFont" id="SystemFont_6yqbr"]
 font_names = PackedStringArray("American Typewriter")
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_anj2f"]
 font_names = PackedStringArray("American Typewriter")
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3lo7i"]
 texture = ExtResource("3_i0ifh")
@@ -170,6 +172,7 @@ animations = [{
 font_names = PackedStringArray("American Typewriter")
 font_weight = 600
 hinting = 2
+subpixel_positioning = 0
 msdf_size = 52
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
