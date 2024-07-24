@@ -49,7 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var a = weapons[weaponIndex] as Weapon
 
 	if event.is_action_pressed("run"):
-		SPEED = 9
+		SPEED = 10
 	if event.is_action_released("run"):
 		SPEED = 5
 	if event.is_action_released("reload"):
@@ -131,15 +131,18 @@ func _physics_process(delta):
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
 		if is_on_floor():
+			velocity.x = direction.x*SPEED
+			velocity.z = direction.z*SPEED
 			CAMERA_CONTROLLER.position = Vector3.UP*abs(sin(headlag*SPEED))/3+Vector3.UP*1.5
 			var spd = global_position.distance_to(global_position+direction)
 			headlag+=delta
+			#velocity.x = move_toward(velocity.x, 0, SPEED)
+			#velocity.z = move_toward(velocity.z, 0, SPEED)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		if is_on_floor():
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.z = move_toward(velocity.z, 0, SPEED)
 		if not is_on_floor():
 			CAMERA_CONTROLLER.position = Vector3.UP*lerpf(CAMERA_CONTROLLER.position.y,1.5,delta*5)
 	
