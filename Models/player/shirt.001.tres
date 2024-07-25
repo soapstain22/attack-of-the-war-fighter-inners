@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bhik661gcyphs"]
+
+[resource]
+resource_name = "shirt.001"
+albedo_color = Color(0.039258, 0.346662, 0, 1)
+metallic = 0.4
+roughness = 0.272166

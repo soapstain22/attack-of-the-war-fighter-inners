@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b2vvhdcqugdfp"]
+
+[resource]
+resource_name = "pant.001"
+albedo_color = Color(0, 0.173328, 0.00629487, 1)
+metallic = 0.4
+roughness = 0.272166

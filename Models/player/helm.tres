@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dypp8dmxcyov"]
+
+[resource]
+resource_name = "helm"
+albedo_color = Color(0, 0.326643, 0.00828683, 1)
+metallic = 0.4
+roughness = 0.272166

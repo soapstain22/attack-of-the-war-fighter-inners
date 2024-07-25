@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dwqjg8ir1otcg"]
+[gd_scene load_steps=36 format=3 uid="uid://dwqjg8ir1otcg"]
 
 [ext_resource type="Script" path="res://code/thePlayerOfTheGameThatIsBeingPlayed.gd" id="1_xbier"]
 [ext_resource type="Script" path="res://code/hud.gd" id="2_tqpvl"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b1t17226wu52u" path="res://images/hud/Health3.png" id="6_yx76o"]
 [ext_resource type="Texture2D" uid="uid://55aukoigb4fy" path="res://images/hud/Health2.png" id="7_f50gp"]
 [ext_resource type="Texture2D" uid="uid://bag2eqwhawhr7" path="res://images/hud/HealthContainer.png" id="7_wdenr"]
+[ext_resource type="PackedScene" uid="uid://r570hor3g0lj" path="res://scenes/prefabs/playeranimatedtest.tscn" id="10_4rgy5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7n8ny"]
 
@@ -331,3 +332,5 @@ theme_override_colors/font_shadow_color = Color(0.741176, 0.741176, 0.741176, 1)
 theme_override_fonts/font = SubResource("SystemFont_5s5d8")
 theme_override_font_sizes/font_size = 52
 text = "100"
+
+[node name="Root Scene" parent="HUD/Panel" instance=ExtResource("10_4rgy5")]
