@@ -6,6 +6,7 @@ class_name Player
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
 @export var CAMERA_CONTROLLER : Camera3D
+@export var animguy :Playermodel
 var selectedWeapon : Weapon
 var playerClass : CasteSystem
 var _mouse_input : bool = false
@@ -28,6 +29,8 @@ var crouch_speed = 20
 var crouch_height = default_height*0.3
 @export var maxhealth= 100
 @export var health = 100 
+@export var anim:AnimationPlayer
+@export var animtree:AnimationTree
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -50,7 +53,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("run"):
 		SPEED = 10
+		animtree.set_meta("running",1)
+		animtree.set_meta("running1",1)
+		animtree.set_meta("running2",1)
 	if event.is_action_released("run"):
+		animtree.set_meta("running",0)
+		animtree.set_meta("running1",0)
+		animtree.set_meta("running2",0)
 		SPEED = 5
 	if event.is_action_released("reload"):
 		var a = weapons[weaponIndex] as Weapon
@@ -99,14 +108,12 @@ func ask_health(ct):
 
 	return true
 func _physics_process(delta):
-
 	# Update camera movement based on mouse movement
 	_update_camera(delta)
 
 	# Add the gravity.i
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -116,11 +123,13 @@ func _physics_process(delta):
 	# Handle crouch
 	# Right now modifies the height of the CollisionShape3D
 	if Input.is_action_pressed("crouch"):
+		animtree.set("parameters/crouchrun/blend_position", 1)
 		pcap.shape.height -= crouch_speed * delta
 		SPEED = crouch_move_speed
 	else:
 		pcap.shape.height += crouch_speed * delta
 	if Input.is_action_just_released("crouch"):
+		animtree.set("parameters/crouchrun/blend_position", 0)
 		SPEED = 5
 	pcap.shape.height = clamp(pcap.shape.height, crouch_height, default_height)
 
@@ -131,6 +140,7 @@ func _physics_process(delta):
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction:
+		
 		if is_on_floor():
 			velocity.x = direction.x*SPEED
 			velocity.z = direction.z*SPEED
@@ -143,6 +153,9 @@ func _physics_process(delta):
 		if is_on_floor():
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
+
+			animtree.set_meta("lr", direction.x/2)
+			animtree.set_meta("fw", direction.z/2)
 		if not is_on_floor():
 			CAMERA_CONTROLLER.position = Vector3.UP*lerpf(CAMERA_CONTROLLER.position.y,1.5,delta*5)
 	
@@ -165,8 +178,6 @@ func attack():
 		b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
 		knockback = a.force
 		#b.linear_velocity = CAMERA_CONTROLLER.global_basis*b.linear_velocity
-		
-
 	HUD.setMaxAmmo(a.clipsize)
 	HUD.setAmmo(a.clip)
 	pass
