@@ -160,7 +160,10 @@ func _physics_process(delta):
 			CAMERA_CONTROLLER.position = Vector3.UP*lerpf(CAMERA_CONTROLLER.position.y,1.5,delta*5)
 	
 	if knockback != 0:
+		# Move the player back horizontally
 		velocity += global_transform.basis.z * knockback
+		# Move the player back vertically
+		velocity.y += (_mouse_rotation.x * knockback) / (TILT_LOWER_LIMIT * 3)
 		knockback = 0
 
 	move_and_slide()
